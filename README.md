@@ -1,4 +1,5 @@
-#Server setup and initialization
+# Server setup and initialization
+
 npm init -y
 npm i express
 npm i nodemon --save-dev
@@ -7,7 +8,8 @@ Auto restarts server on changes
 
     Make sure app.listen(3000) is at end of file; 3000 is port number NO "" marks
 
-#Basics of response (routing) & sending data(.send, json, download)
+# Basics of response (routing) & sending data(.send, json, download)
+
 // setup home path
 app.get('/',(req,res)=> {}) // give path & function with request & response param
 
@@ -21,7 +23,8 @@ app.get('/',(req,res)=> {}) // give path & function with request & response para
     // Sending downloadable file so popup opens for user
     res.download('server.js')
 
-#Rendering html as a response to a path
+# Rendering html as a response to a path
+
 // render files must be inside 'views' folder
 app.set('view engine', 'ejs')
 app.get("/", (req, res) => {res.render("index", {text: 'Hello world'})}
@@ -56,7 +59,8 @@ app.get("/", (req, res) => {res.render("index", {text: 'Hello world'})}
     <%= locals.varName || 'default text' %>
     locals is defined but varName may not be there so set default
 
-#Routes (using separate files for common endpoints or groups)
+# Routes (using separate files for common endpoints or groups)
+
 Eg: All /users endpoints
 Inside 'routes' folder, create users.js
 
@@ -101,7 +105,8 @@ Inside 'routes' folder, create users.js
     })
     // Set any variable in req; You can use req.user variable anywhere you have the request object
 
-#Middleware (happens between (after) request & (before) response)
+# Middleware (happens between (after) request & (before) response)
+
 That's why it'll keep loading infinitely, use next function to end the middleware and go to next middleware or request if there isn't any
 
     app.use(logger)
@@ -122,7 +127,8 @@ That's why it'll keep loading infinitely, use next function to end the middlewar
     // Can access tt.html using 'http://localhost:3000/tt.html' extension remains
     // Only index.html is on homepage
 
-#Parsing form & jSON data from frontend
+# Parsing form & jSON data from frontend
+
 Eg user creation form on '/users/new'
 Inside views folder > users folder > new.ejs file; input name field has attribute name="firstName"
 Access using req.body.firstName (whatever the name attribute of that element is)
@@ -144,7 +150,8 @@ Access using req.body.firstName (whatever the name attribute of that element is)
     // Eg: /users/new?name='punit'
     app.get('/new',(req,res)=> {console.log(res.query.name)})
 
-#Using env file
+# Using env file
+
 npm install dotenv --save-dev
 Create .env file in root folder, add to .gitignore
 In .env define variable directly without spaces enven around = sign
@@ -155,12 +162,15 @@ STRIPE_SECRET_KEY=test // example
         require('dotenv').load()
     }
 
-#General
+# General
+
 When you want to provide public api key from backend, add it to the render object
 Then in head tag, add script tag, and define variable like this
+
 <script> var stripePublicKey = <%= stripePublicKey %> </script>
 
-#Create baisc Node server code
+# Create baisc Node server code
+
 // In app.js file
 const http = require("http");
 const port = 3000;
@@ -187,7 +197,8 @@ const fs = require("fs");
     }
     });
 
-#Reading a file like product json database
+# Reading a file like product json database
+
 app.get("/store", (req, res) => {
 fs.readFile("items.json", (error, data) => {
 // If reading error, then status 500 and tell the writing ended
